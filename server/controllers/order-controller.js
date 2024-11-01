@@ -11,4 +11,18 @@ const createOrder = async (req, res) => {
   }
 };
 
-module.exports = { createOrder };
+const getOrderByEmail = async (req, res) => {
+  try {
+    const { email } = req.params;
+    const orders = await Order.find({ email }).sort({ date: -1 });
+
+    if (!orders)
+      return res.status(404).json({ message: "Nenhum pedido encontrado" });
+    res.status(200).json(orders);
+  } catch (error) {
+    console.log("Erro ao buscar os pedidos por email", error.message);
+    res.status(500).send({ message: "Erro ao buscar os pedidos" });
+  }
+};
+
+module.exports = { createOrder, getOrderByEmail };
