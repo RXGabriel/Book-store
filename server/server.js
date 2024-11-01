@@ -4,6 +4,7 @@ const cors = require("cors");
 const bookRoutes = require("./routes/book-routes");
 const userRoutes = require("./routes/user-routes");
 const orderRoutes = require("./routes/order-routes");
+const adminRoutes = require("./routes/admin-routes");
 
 require("dotenv").config();
 const app = express();
@@ -38,6 +39,7 @@ app.use(express.json());
 app.use("/api/books", bookRoutes);
 app.use("/api/auth", userRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("Api rodando");
