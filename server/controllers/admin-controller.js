@@ -1,5 +1,5 @@
-const Order = require("../orders/order.model");
-const Book = require("../books/book.model");
+const Order = require("../models/Order");
+const Book = require("../models/Book");
 
 const getAdminStats = async (req, res) => {
   try {
