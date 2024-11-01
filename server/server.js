@@ -1,10 +1,7 @@
 const express = require("express");
 const connectDB = require("./utils/db");
 const cors = require("cors");
-const bookRoutes = require("./routes/book-routes");
-const userRoutes = require("./routes/user-routes");
-const orderRoutes = require("./routes/order-routes");
-const adminRoutes = require("./routes/admin-routes");
+const routes = require("./routes");
 
 require("dotenv").config();
 const app = express();
@@ -36,10 +33,7 @@ app.use(
 );
 
 app.use(express.json());
-app.use("/api/books", bookRoutes);
-app.use("/api/auth", userRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/admin", adminRoutes);
+app.use("/api", routes);
 
 app.get("/", (req, res) => {
   res.send("Api rodando");
