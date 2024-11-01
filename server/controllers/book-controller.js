@@ -13,4 +13,14 @@ const addBook = async (req, res) => {
   }
 };
 
-module.exports = { addBook };
+const getAllBooks = async (req, res) => {
+  try {
+    const books = await Book.find().sort({ createdAt: -1 });
+    res.status(200).send(books);
+  } catch (error) {
+    console.log("Erro ao obter todos os livros:", error.message);
+    res.status(500).send({ message: "Erro ao obter todos os livros" });
+  }
+};
+
+module.exports = { addBook, getAllBooks };
