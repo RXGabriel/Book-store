@@ -54,4 +54,25 @@ const updateBook = async (req, res) => {
   }
 };
 
-module.exports = { addBook, getAllBooks, getSingleBook, updateBook };
+const deleteBook = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedBook = await Book.findByIdAndDelete(id);
+
+    if (!deletedBook) res.status(404).send({ message: "Livro não encontrado" });
+    res
+      .status(200)
+      .send({ message: "Livro excluído com sucesso", book: deletedBook });
+  } catch (error) {
+    console.log("Erro ao excluir livro:", error.message);
+    res.status(500).send({ message: "Erro ao excluir o livro" });
+  }
+};
+
+module.exports = {
+  addBook,
+  getAllBooks,
+  getSingleBook,
+  updateBook,
+  deleteBook,
+};
