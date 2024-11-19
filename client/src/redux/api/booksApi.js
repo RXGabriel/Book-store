@@ -34,6 +34,17 @@ const booksApi = createApi({
       }),
       invalidatesTags: ["Books"],
     }),
+    updateBook: builder.mutation({
+      query: ({ id, ...rest }) => ({
+        url: `/edit/${id}`,
+        method: "PUT",
+        body: rest,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }),
+      invalidatesTags: ["Books"],
+    }),
   }),
 });
 
@@ -41,5 +52,6 @@ export const {
   useFetchAllBooksQuery,
   useFetchBookByIdQuery,
   useAddBookMutation,
+  useUpdateBookMutation,
 } = booksApi;
 export default booksApi;
