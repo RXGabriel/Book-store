@@ -1,0 +1,202 @@
+[
+  {
+    "_id": 1,
+    "title": "Como Expandir Sua Loja Online",
+    "description": "Aprenda as melhores estratégias para expandir sua loja online no mercado competitivo de hoje.",
+    "category": "business",
+    "trending": true,
+    "coverImage": "book-1.png",
+    "oldPrice": 29.99,
+    "newPrice": 19.99
+  },
+  {
+    "_id": 2,
+    "title": "Top 10 Livros de Ficção do Ano",
+    "description": "Uma lista curada dos melhores livros de ficção que estão em alta este ano.",
+    "category": "books",
+    "trending": true,
+    "coverImage": "book-2.png",
+    "oldPrice": 24.99,
+    "newPrice": 14.99
+  },
+  {
+    "_id": 3,
+    "title": "Dominando SEO em 2024",
+    "description": "Dicas e truques para melhorar seu SEO e alcançar posições mais altas nos mecanismos de busca.",
+    "category": "marketing",
+    "trending": true,
+    "coverImage": "book-3.png",
+    "oldPrice": 39.99,
+    "newPrice": 29.99
+  },
+  {
+    "_id": 4,
+    "title": "Melhores Plataformas de eCommerce",
+    "description": "Um guia abrangente para escolher as melhores plataformas de eCommerce para 2024.",
+    "category": "business",
+    "trending": false,
+    "coverImage": "book-4.png",
+    "oldPrice": 49.99,
+    "newPrice": 39.99
+  },
+  {
+    "_id": 5,
+    "title": "Leituras Não Ficcionais que Você Deve Experimentar",
+    "description": "Nossas principais escolhas de livros de não ficção para adicionar à sua lista de leitura.",
+    "category": "books",
+    "trending": true,
+    "coverImage": "book-5.png",
+    "oldPrice": 19.99,
+    "newPrice": 9.99
+  },
+  {
+    "_id": 6,
+    "title": "Guia Definitivo de Marketing Digital",
+    "description": "Um guia completo de estratégias de marketing digital para 2024.",
+    "category": "marketing",
+    "trending": false,
+    "coverImage": "book-6.png",
+    "oldPrice": 44.99,
+    "newPrice": 34.99
+  },
+  {
+    "_id": 7,
+    "title": "Os Primeiros Dias",
+    "description": "Katie está dirigindo para o trabalho em um lindo dia quando um homem morto pula em seu carro e tenta comê-la. Na mesma manhã, Jenni abre uma porta de quarto e encontra seu marido devorando o filho pequeno.",
+    "category": "horror",
+    "trending": true,
+    "coverImage": "book-7.png",
+    "oldPrice": 59.99,
+    "newPrice": 49.99
+  },
+  {
+    "_id": 8,
+    "title": "Jogos Vorazes",
+    "description": "Você conseguiria sobreviver sozinho na natureza, com todos querendo garantir que você não viva até o amanhecer?",
+    "category": "fiction",
+    "trending": true,
+    "coverImage": "book-8.png",
+    "oldPrice": 21.99,
+    "newPrice": 16.99
+  },
+  {
+    "_id": 9,
+    "title": "Harry Potter e a Ordem da Fênix",
+    "description": "Harry Potter está prestes a começar seu quinto ano em Hogwarts. Ao contrário da maioria dos garotos, Harry nunca gosta das férias de verão.",
+    "category": "adventure",
+    "trending": false,
+    "coverImage": "book-9.png",
+    "oldPrice": 27.99,
+    "newPrice": 18.99
+  },
+  {
+    "_id": 10,
+    "title": "Orgulho e Preconceito",
+    "description": "O confronto romântico entre a opinativa Elizabeth e seu orgulhoso pretendente, Sr. Darcy, é uma performance esplêndida de embates civilizados.",
+    "category": "fiction",
+    "trending": true,
+    "coverImage": "book-10.png",
+    "oldPrice": 14.99,
+    "newPrice": 10.99
+  },
+  {
+    "_id": 11,
+    "title": "O Sol é Para Todos",
+    "description": "O romance inesquecível sobre a infância em uma cidadezinha sonolenta do sul e a crise de consciência que a abalou. 'O Sol é Para Todos' tornou-se um best-seller instantâneo.",
+    "category": "fiction",
+    "trending": true,
+    "coverImage": "book-11.png",
+    "oldPrice": 32.99,
+    "newPrice": 25.99
+  },
+  {
+    "_id": 12,
+    "title": "A Culpa é das Estrelas",
+    "description": "Apesar do milagre médico que encolheu seu tumor e lhe deu alguns anos, Hazel sempre esteve condenada, seu capítulo final escrito no diagnóstico.",
+    "category": "business",
+    "trending": true,
+    "coverImage": "book-12.png",
+    "oldPrice": 19.99,
+    "newPrice": 9.99
+  },
+  {
+    "_id": 13,
+    "title": "O Retrato de Dorian Gray",
+    "description": "O único romance de Oscar Wilde é a história onírica de um jovem que vende sua alma em troca de juventude e beleza eternas.",
+    "category": "horror",
+    "trending": true,
+    "coverImage": "book-13.png",
+    "oldPrice": 26.99,
+    "newPrice": 21.99
+  },
+  {
+    "_id": 14,
+    "title": "A Árvore Generosa",
+    "description": "'Era uma vez uma árvore... e ela amava um garotinho.' Assim começa uma história de percepção inesquecível, lindamente escrita e ilustrada por Shel Silverstein.",
+    "category": "fiction",
+    "trending": false,
+    "coverImage": "book-14.png",
+    "oldPrice": 34.99,
+    "newPrice": 24.99
+  },
+  {
+    "_id": 15,
+    "title": "E o Vento Levou",
+    "description": "Scarlett O'Hara, a bela e mimada filha de um rico fazendeiro da Geórgia, precisa usar todos os meios ao seu alcance para escapar da pobreza após a Marcha de Sherman para o Mar.",
+    "category": "fiction",
+    "trending": false,
+    "coverImage": "book-15.png",
+    "oldPrice": 22.99,
+    "newPrice": 12.99
+  },
+  {
+    "_id": 16,
+    "title": "O Ladrão de Raios",
+    "description": "Percy Jackson é um bom garoto, mas não consegue se concentrar nos estudos ou controlar seu temperamento. E ultimamente, estar no colégio interno tem piorado - Percy jurava que sua professora de pré-álgebra se transformou em um monstro e tentou matá-lo.",
+    "category": "fiction",
+    "trending": false,
+    "coverImage": "book-16.png",
+    "oldPrice": 24.99,
+    "newPrice": 19.99
+  },
+  {
+    "_id": 17,
+    "title": "As Aventuras de Alice no País das Maravilhas",
+    "description": "Quando Alice vê um coelho branco tirar um relógio do bolso do colete, decide segui-lo, iniciando uma sequência de eventos incomuns. Este mini livro contém as histórias completas de Alice no País das Maravilhas.",
+    "category": "adventure",
+    "trending": true,
+    "coverImage": "book-17.png",
+    "oldPrice": 49.99,
+    "newPrice": 39.99
+  },
+  {
+    "_id": 18,
+    "title": "Divergente",
+    "description": "Em um dia determinado todos os anos, todos os jovens de dezesseis anos devem escolher a facção à qual dedicarão o resto de suas vidas. Para Beatrice, a decisão é entre ficar com sua família ou ser quem realmente é.",
+    "category": "business",
+    "trending": true,
+    "coverImage": "book-18.png",
+    "oldPrice": 18.99,
+    "newPrice": 12.99
+  },
+  {
+    "_id": 19,
+    "title": "O Alquimista",
+    "description": "A obra-prima de Paulo Coelho conta a história mística de Santiago, um jovem pastor andaluz que sonha em viajar em busca de um tesouro mundano.",
+    "category": "adventure",
+    "trending": true,
+    "coverImage": "book-19.png",
+    "oldPrice": 35.99,
+    "newPrice": 27.99
+  },
+  {
+    "_id": 20,
+    "title": "Quatro Mil Semanas",
+    "description": "Ninguém precisa ser avisado de que não há tempo suficiente. Estamos obcecados com listas de tarefas, caixas de entrada lotadas e o equilíbrio entre trabalho e vida pessoal, lutando para sermos mais produtivos e eficientes.",
+    "category": "business",
+    "trending": false,
+    "coverImage": "book-20.png",
+    "oldPrice": 24.99,
+    "newPrice": 14.99
+  }
+]
