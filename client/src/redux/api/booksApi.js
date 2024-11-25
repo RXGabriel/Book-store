@@ -28,7 +28,7 @@ const booksApi = createApi({
     }),
     addBook: builder.mutation({
       query: (newBook) => ({
-        url: "/create-book",
+        url: `/create-book`,
         method: "POST",
         body: newBook,
       }),
@@ -40,7 +40,7 @@ const booksApi = createApi({
         method: "PUT",
         body: rest,
         headers: {
-          "Content-type": "application/json",
+          "Content-Type": "application/json",
         },
       }),
       invalidatesTags: ["Books"],
