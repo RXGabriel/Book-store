@@ -5,7 +5,7 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
 
-import { news } from "../../../data/news";
+import { news } from "../../data/news";
 const News = () => {
   return (
     <div className="py-16">

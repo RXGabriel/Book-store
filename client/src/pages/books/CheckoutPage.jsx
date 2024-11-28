@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useCreateOrderMutation } from "../../redux/api/ordersApi";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import Swal from "sweetalert2";
 
 const CheckoutPage = () => {
