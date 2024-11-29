@@ -50,7 +50,7 @@ const SingleBook = () => {
 
         <button
           onClick={() => handleAddToCart(book)}
-          className="btn-primary w-full px-6 py-5 flex items-center justify-center gap-1"
+          className="btn-primary w-full px-6 py-5 flex items-center justify-center gap-1 space-x-1"
         >
           <FiShoppingCart />
           <span>Adicionar</span>
