@@ -19,6 +19,15 @@ const CheckoutPage = () => {
     .toFixed(2);
 
   const onSubmit = async (data) => {
+    if (cartItems.length === 0) {
+      Swal.fire({
+        title: "Erro",
+        text: "Adicione pelo menos um produto ao carrinho para realizar o checkout!",
+        icon: "error",
+      });
+      return;
+    }
+
     const newOrder = {
       name: data.name,
       email: currentUser?.email,
@@ -52,6 +61,7 @@ const CheckoutPage = () => {
   };
 
   if (isLoading) return <div>Carregando....</div>;
+
   return (
     <section>
       <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
@@ -109,7 +119,7 @@ const CheckoutPage = () => {
                         type="number"
                         name="phone"
                         id="phone"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 appearance-none"
                         placeholder="+123 456 7890"
                       />
                     </div>
@@ -145,39 +155,6 @@ const CheckoutPage = () => {
                           id="country"
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                         />
-                        <button
-                          tabIndex="-1"
-                          className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                        <button
-                          tabIndex="-1"
-                          className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                          </svg>
-                        </button>
                       </div>
                     </div>
 
@@ -187,39 +164,10 @@ const CheckoutPage = () => {
                         <input
                           {...register("state", { required: true })}
                           name="state"
+                          type="text"
                           id="state"
                           className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
                         />
-                        <button className="cursor-pointer outline-none focus:outline-none transition-all text-gray-300 hover:text-red-600">
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <line x1="18" y1="6" x2="6" y2="18"></line>
-                            <line x1="6" y1="6" x2="18" y2="18"></line>
-                          </svg>
-                        </button>
-                        <button
-                          tabIndex="-1"
-                          className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600"
-                        >
-                          <svg
-                            className="w-4 h-4 mx-2 fill-current"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          >
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                          </svg>
-                        </button>
                       </div>
                     </div>
 
@@ -258,10 +206,7 @@ const CheckoutPage = () => {
 
                     <div className="md:col-span-5 text-right">
                       <div className="inline-flex items-end">
-                        <button
-                          disabled={!isChecked}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        >
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                           Faça um pedido
                         </button>
                       </div>
