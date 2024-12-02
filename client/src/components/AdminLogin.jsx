@@ -35,7 +35,7 @@ const AdminLogin = () => {
       alert("Acesso efetuado com sucesso, redirecionando...");
       navigate("/dashboard");
     } catch (error) {
-      setMessage("Forneça e-mail e senha válidos");
+      setMessage("Forneça usuário e senha válidos");
       console.error(error);
     }
   };
