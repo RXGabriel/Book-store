@@ -10,6 +10,8 @@ import SingleBook from "../pages/books/SingleBook.jsx";
 import OrderPage from "../pages/books/OrderPage.jsx";
 import AdminRoute from "./AdminRoute.jsx";
 import AdminLogin from "../components/AdminLogin.jsx";
+import DashboardLayout from "../pages/dashboard/DashboardLayout.jsx";
+import Dashboard from "../pages/dashboard/Dashboard.jsx";
 
 const router = createBrowserRouter([
   {
@@ -67,7 +69,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <AdminRoute>
-        <div>Dashboard</div>
+        <DashboardLayout />
       </AdminRoute>
     ),
     children: [
@@ -75,7 +77,10 @@ const router = createBrowserRouter([
         path: "",
         element: (
           <AdminRoute>
-            <div>Dashboard HOme</div>,
+            <div>
+              <Dashboard />
+            </div>
+            ,
           </AdminRoute>
         ),
       },
