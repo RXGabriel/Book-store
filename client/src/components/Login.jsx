@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FaGoogle } from "react-icons/fa";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [message, setMessage] = useState("");
@@ -13,10 +14,21 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       await loginUser(data.email, data.password);
-      alert("Login efetuado com sucesso");
+      Swal.fire({
+        icon: "success",
+        title: "Login efetuado com sucesso",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/");
     } catch (error) {
       setMessage("Forneça e-mail e senha válidos");
+      Swal.fire({
+        icon: "error",
+        title: "Erro no login",
+        text: "E-mail ou senha inválidos",
+        confirmButtonText: "Tentar novamente",
+      });
       console.error(error);
     }
   };
@@ -24,10 +36,20 @@ const Login = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle();
-      alert("Login efetuado com sucesso");
+      Swal.fire({
+        icon: "success",
+        title: "Login efetuado com sucesso",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       navigate("/");
     } catch (error) {
-      alert("Login falhou");
+      Swal.fire({
+        icon: "error",
+        title: "Login falhou",
+        text: "Tente novamente mais tarde",
+        confirmButtonText: "OK",
+      });
       console.error(error);
     }
   };

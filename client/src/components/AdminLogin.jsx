@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import Swal from "sweetalert2";
 import getBaseUrl from "../utils/baseURL";
 import { useNavigate } from "react-router-dom";
 
@@ -27,16 +28,35 @@ const AdminLogin = () => {
         localStorage.setItem("token", auth.token);
         setTimeout(() => {
           localStorage.removeItem("token");
-          alert("Token expirado, por favor, faça login novamente");
+          Swal.fire({
+            title: "Sessão Expirada",
+            text: "Por favor, faça login novamente.",
+            icon: "warning",
+            confirmButtonText: "OK",
+          });
           navigate("/");
         }, 3600 * 1000);
-      }
 
-      alert("Acesso efetuado com sucesso, redirecionando...");
-      navigate("/dashboard");
+        Swal.fire({
+          title: "Login Realizado",
+          text: "Acesso efetuado com sucesso! Redirecionando...",
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        });
+
+        navigate("/dashboard");
+      }
     } catch (error) {
-      setMessage("Forneça usuário e senha válidos");
       console.error(error);
+      setMessage("Forneça usuário e senha válidos");
+
+      Swal.fire({
+        title: "Erro de Login",
+        text: "Forneça usuário e senha válidos.",
+        icon: "error",
+        confirmButtonText: "OK",
+      });
     }
   };
 
