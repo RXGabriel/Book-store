@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useAuth } from "../context/AuthContext";
 import { useSearchBooksQuery } from "../redux/api/booksApi";
+import Swal from "sweetalert2";
 
 const navigation = [
   { name: "Pedidos", href: "/orders" },
@@ -27,8 +28,23 @@ const Navbar = () => {
     skip: !query,
   });
 
-  const handleLogOut = () => {
-    logout();
+  const handleLogOut = async () => {
+    try {
+      await logout();
+      Swal.fire({
+        title: "Sucesso!",
+        text: "Você saiu da sua conta.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
+    } catch (error) {
+      Swal.fire({
+        title: "Erro!",
+        text: "Ocorreu um erro ao sair da conta.",
+        icon: "error",
+        confirmButtonText: "Tentar novamente",
+      });
+    }
   };
 
   const handleSearchChange = (e) => {
