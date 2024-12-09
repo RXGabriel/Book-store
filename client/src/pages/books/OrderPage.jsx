@@ -1,6 +1,7 @@
 import { useGetOrderByEmailQuery } from "../../redux/api/ordersApi";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
+import Loading from "../../components/Loading";
 
 const OrderPage = () => {
   const { currentUser } = useAuth();
@@ -16,7 +17,7 @@ const OrderPage = () => {
     setOrders(updatedOrders);
   };
 
-  if (isLoading) return <div>Carregando...</div>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>Error ao buscar os pedidos</div>;
 
   return (

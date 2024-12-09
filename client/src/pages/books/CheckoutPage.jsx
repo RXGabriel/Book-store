@@ -5,6 +5,7 @@ import { useCreateOrderMutation } from "../../redux/api/ordersApi";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Swal from "sweetalert2";
+import Loading from "../../components/Loading";
 
 const CheckoutPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -60,7 +61,7 @@ const CheckoutPage = () => {
     }
   };
 
-  if (isLoading) return <div>Carregando....</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <section>
