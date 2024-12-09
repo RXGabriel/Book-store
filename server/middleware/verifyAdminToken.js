@@ -2,10 +2,12 @@ const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 const verifyAdminToken = (req, res, next) => {
-  const token = req.header["authorization"]?.split(" ")[1];
+  const token = req.headers["authorization"]?.split(" ")[1];
 
   if (!token) {
-    return res.status(401).json({ message: "Acesso negado" });
+    return res
+      .status(401)
+      .json({ message: "Acesso negado. Token não encontrado" });
   }
 
   jwt.verify(token, JWT_SECRET, (error, user) => {
