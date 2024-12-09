@@ -56,6 +56,19 @@ const updateBook = async (req, res) => {
   }
 };
 
+const searchBooks = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const books = await Book.find({
+      title: { $regex: query, $options: "i" },
+    });
+    res.status(200).send(books);
+  } catch (error) {
+    console.error("Erro ao buscar livros", error);
+    res.status(500).send({ message: "Erro ao buscar livros" });
+  }
+};
+
 const deleteBook = async (req, res) => {
   try {
     const { id } = req.params;
@@ -78,5 +91,6 @@ module.exports = {
   getAllBooks,
   getSingleBook,
   updateBook,
+  searchBooks,
   deleteBook,
 };
