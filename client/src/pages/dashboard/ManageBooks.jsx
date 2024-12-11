@@ -32,7 +32,7 @@ const ManageBooks = () => {
             <div className="flex flex-wrap items-center">
               <div className="relative w-full px-4 max-w-full flex-grow flex-1">
                 <h3 className="font-semibold text-base text-blueGray-700">
-                  All Books
+                  Todos os livros
                 </h3>
               </div>
             </div>
@@ -46,16 +46,16 @@ const ManageBooks = () => {
                     #
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Book Title
+                    Título
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Category
+                    Categoria
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Price
+                    Preço
                   </th>
                   <th className="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                    Actions
+                    Ações
                   </th>
                 </tr>
               </thead>
@@ -74,20 +74,20 @@ const ManageBooks = () => {
                         {book.category}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
-                        ${book.newPrice}
+                        R${book.newPrice}
                       </td>
                       <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 space-x-4">
                         <button
                           onClick={() => handleEditClick(book._id)}
                           className="font-medium text-indigo-600 hover:text-indigo-700 mr-2 hover:underline underline-offset-2"
                         >
-                          Edit
+                          Editar
                         </button>
                         <button
                           onClick={() => handleBookDelete(book._id)}
                           className="font-medium bg-red-500 py-1 px-4 rounded-full text-white mr-2"
                         >
-                          Delete
+                          Deletar
                         </button>
                       </td>
                     </tr>

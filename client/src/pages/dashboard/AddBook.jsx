@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import InputField from "../../components/InputField";
 import SelectField from "../../components/SelectField";
+import Loading from "../../components/Loading";
 
 const AddBook = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -24,8 +25,8 @@ const AddBook = () => {
     try {
       await addBook(newBookData).unwrap();
       Swal.fire({
-        title: "Book added",
-        text: "Your book is uploaded successfully!",
+        title: "Livro adicionado",
+        text: "Seu livro foi adicionado com sucesso!",
         icon: "success",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -53,40 +54,35 @@ const AddBook = () => {
     <div className="max-w-lg   mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="">
-        {/* Reusable Input Field for Title */}
         <InputField
-          label="Title"
+          label="Titulo"
           name="title"
-          placeholder="Enter book title"
+          placeholder="Insira o título do livro"
           register={register}
         />
 
-        {/* Reusable Textarea for Description */}
         <InputField
-          label="Description"
+          label="Descrição"
           name="description"
-          placeholder="Enter book description"
+          placeholder="Insira a descrição do livro"
           type="textarea"
           register={register}
         />
 
-        {/* Reusable Select Field for Category */}
         <SelectField
-          label="Category"
+          label="Categoria"
           name="category"
           options={[
-            { value: "", label: "Choose A Category" },
+            { value: "", label: "Escolha uma categoria" },
             { value: "business", label: "Business" },
             { value: "technology", label: "Technology" },
             { value: "fiction", label: "Fiction" },
             { value: "horror", label: "Horror" },
             { value: "adventure", label: "Adventure" },
-            // Add more options as needed
           ]}
           register={register}
         />
 
-        {/* Trending Checkbox */}
         <div className="mb-4">
           <label className="inline-flex items-center">
             <input
@@ -95,33 +91,30 @@ const AddBook = () => {
               className="rounded text-blue-600 focus:ring focus:ring-offset-2 focus:ring-blue-500"
             />
             <span className="ml-2 text-sm font-semibold text-gray-700">
-              Trending
+              Popular
             </span>
           </label>
         </div>
 
-        {/* Old Price */}
         <InputField
-          label="Old Price"
+          label="Preço antigo"
           name="oldPrice"
           type="number"
-          placeholder="Old Price"
+          placeholder="Preço antigo"
           register={register}
         />
 
-        {/* New Price */}
         <InputField
-          label="New Price"
+          label="Novo Preço"
           name="newPrice"
           type="number"
-          placeholder="New Price"
+          placeholder="Novo Preço"
           register={register}
         />
 
-        {/* Cover Image Upload */}
         <div className="mb-4">
           <label className="block text-sm font-semibold text-gray-700 mb-2">
-            Cover Image
+            Imagem do livro
           </label>
           <input
             type="file"
@@ -134,16 +127,11 @@ const AddBook = () => {
           )}
         </div>
 
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full py-2 bg-green-500 text-white font-bold rounded-md"
         >
-          {isLoading ? (
-            <span className="">Adding.. </span>
-          ) : (
-            <span>Add Book</span>
-          )}
+          {isLoading ? <Loading /> : <span>Adicionar Livro</span>}
         </button>
       </form>
     </div>

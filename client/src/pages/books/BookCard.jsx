@@ -35,9 +35,9 @@ const BookCard = ({ book }) => {
               : book?.description}
           </p>
           <p className="font-medium mb-5">
-            ${book?.newPrice}{" "}
+            R${book?.newPrice}{" "}
             <span className="line-through font-normal ml-2">
-              $ {book?.oldPrice}
+              R$ {book?.oldPrice}
             </span>
           </p>
           <button
@@ -45,7 +45,7 @@ const BookCard = ({ book }) => {
             className="btn-primary px-6 space-x-1 flex items-center gap-1 "
           >
             <FiShoppingCart className="" />
-            <span>Add to Cart</span>
+            <span>Adicionar ao carrinho</span>
           </button>
         </div>
       </div>

@@ -115,7 +115,7 @@ const EditBook = () => {
           label="Categoria"
           name="category"
           options={[
-            { value: "", label: "Choose A Category" },
+            { value: "", label: "Escolha uma categoria" },
             { value: "business", label: "Business" },
             { value: "technology", label: "Technology" },
             { value: "fiction", label: "Fiction" },
