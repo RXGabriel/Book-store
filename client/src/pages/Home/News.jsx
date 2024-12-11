@@ -4,12 +4,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 import { Link } from "react-router-dom";
-
 import { news } from "../../data/news";
+
 const News = () => {
   return (
     <div className="py-16">
-      <h2 className="text-3xl font-semibold mb-6">News </h2>
+      <h2 className="text-3xl font-semibold mb-6">Notícias</h2>
 
       <Swiper
         slidesPerView={1}

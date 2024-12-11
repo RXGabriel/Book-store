@@ -6,37 +6,38 @@ import news4 from "../assets/news/news-4.png";
 export const news = [
   {
     id: 1,
-    title: "Global Climate Summit Calls for Urgent Action",
+    title: "Cúpula Global do Clima Convoca Ação Urgente",
     description:
-      "World leaders gather at the Global Climate Summit to discuss urgent strategies to combat climate change, focusing on reducing carbon emissions and fostering renewable energy solutions.",
+      "Líderes mundiais se reúnem na Cúpula Global do Clima para discutir estratégias urgentes para combater as mudanças climáticas, com foco na redução das emissões de carbono e na promoção de soluções de energia renovável.",
     image: news1,
   },
   {
     id: 2,
-    title: "Breakthrough in AI Technology Announced",
+    title: "Avanço em Tecnologia de IA Anunciado",
     description:
-      "A major breakthrough in artificial intelligence has been announced by researchers, with new advancements promising to revolutionize industries from healthcare to finance.",
+      "Um grande avanço em inteligência artificial foi anunciado por pesquisadores, com novas inovações prometendo revolucionar indústrias desde a saúde até as finanças.",
     image: news2,
   },
   {
     id: 3,
-    title: "New Space Mission Aims to Explore Distant Galaxies",
+    title: "Nova Missão Espacial Tem Como Objetivo Explorar Galáxias Distantes",
     description:
-      "NASA has unveiled plans for a new space mission that will aim to explore distant galaxies, with hopes of uncovering insights into the origins of the universe.",
+      "A NASA revelou planos para uma nova missão espacial que visa explorar galáxias distantes, com esperanças de descobrir insights sobre as origens do universo.",
     image: news3,
   },
   {
     id: 4,
-    title: "Stock Markets Reach Record Highs Amid Economic Recovery",
+    title:
+      "Mercados de Ações Atingem Altos Recordes em Meio à Recuperação Econômica",
     description:
-      "Global stock markets have reached record highs as signs of economic recovery continue to emerge following the challenges posed by the global pandemic.",
+      "Os mercados globais de ações atingiram altos recordes à medida que sinais de recuperação econômica continuam a surgir após os desafios impostos pela pandemia global.",
     image: news4,
   },
   {
     id: 5,
-    title: "Innovative New Smartphone Released by Leading Tech Company",
+    title: "Novo Smartphone Inovador Lançado por Empresa de Tecnologia Líder",
     description:
-      "A leading tech company has released its latest smartphone model, featuring cutting-edge technology, improved battery life, and a sleek new design.",
+      "Uma empresa de tecnologia líder lançou seu mais recente modelo de smartphone, apresentando tecnologia de ponta, vida útil da bateria aprimorada e um novo design elegante.",
     image: news2,
   },
 ];
