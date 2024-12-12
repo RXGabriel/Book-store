@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import {
   useDeleteBookMutation,
   useFetchAllBooksQuery,
@@ -10,13 +11,30 @@ const ManageBooks = () => {
   const navigate = useNavigate();
 
   const handleBookDelete = async (id) => {
-    try {
-      await deleteBook(id).unwrap();
-      alert("Livro excluído com sucesso!");
-      refetch();
-    } catch (error) {
-      console.error("Failed to delete book:", error.message);
-      alert("Failed to delete book. Please try again.");
+    const confirmation = await Swal.fire({
+      title: "Você tem certeza?",
+      text: "Esta ação não pode ser desfeita!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Sim, deletar!",
+      cancelButtonText: "Cancelar",
+    });
+
+    if (confirmation.isConfirmed) {
+      try {
+        await deleteBook(id).unwrap();
+        Swal.fire("Deletado!", "O livro foi deletado com sucesso.", "success");
+        refetch();
+      } catch (error) {
+        console.error("Failed to delete book:", error.message);
+        Swal.fire(
+          "Erro!",
+          "Falha ao deletar o livro. Por favor, tente novamente.",
+          "error"
+        );
+      }
     }
   };
 
