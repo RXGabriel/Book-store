@@ -7,15 +7,15 @@ const {
   deleteBook,
   searchBooks,
 } = require("../controllers/book-controller");
-const verifyAdminToken = require("../middleware/verifyAdminToken");
+const verifyUserToken = require("../middleware/verifyUserToken");
 
 const router = express.Router();
 
-router.post("/create-book", verifyAdminToken, addBook);
+router.post("/create-book", verifyUserToken, addBook);
 router.get("/", getAllBooks);
 router.get("/search", searchBooks);
 router.get("/:id", getSingleBook);
-router.put("/edit/:id", verifyAdminToken, updateBook);
-router.delete("/:id", verifyAdminToken, deleteBook);
+router.put("/edit/:id", verifyUserToken, updateBook);
+router.delete("/:id", verifyUserToken, deleteBook);
 
 module.exports = router;
