@@ -6,6 +6,10 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    author: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
@@ -33,6 +37,10 @@ const bookSchema = new mongoose.Schema(
     createdAt: {
       type: Date,
       default: Date.now,
+    },
+    pages: {
+      type: Number,
+      required: true,
     },
   },
   { timestamps: true }
