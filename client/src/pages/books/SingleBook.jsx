@@ -35,15 +35,15 @@ const SingleBook = () => {
             <p className="text-gray-700 mb-6">
               <strong>Autor:</strong> {book.author || "admin"}
             </p>
-            <p className="text-gray-700 mb-6">
-              <strong>Publicação:</strong>{" "}
-              {new Date(book?.createdAt).toLocaleDateString()}
-            </p>
+
             <p className="text-gray-700 mb-6 capitalize">
               <strong>Categoria:</strong> {book?.category}
             </p>
             <p className="text-gray-700 mb-6">
               <strong>Descrição:</strong> {book.description}
+            </p>
+            <p className="text-gray-700 mb-6">
+              <strong>Páginas:</strong> {book.pages || "Não informado"}
             </p>
           </div>
         </div>
