@@ -2,8 +2,7 @@ const Book = require("../models/Book");
 
 const addBook = async (req, res) => {
   try {
-    const newBook = await Book({ ...req.body });
-    await newBook.save();
+    const newBook = await Book.create(req.body);
     res
       .status(200)
       .send({ message: "Book posted successfully", book: newBook });
@@ -40,12 +39,27 @@ const getSingleBook = async (req, res) => {
 const updateBook = async (req, res) => {
   try {
     const { id } = req.params;
+    const { author } = req.body;
+    const { pages } = req.body;
+
+    if (!author) {
+      return res
+        .status(400)
+        .send({ message: "O campo 'author' é obrigatório" });
+    }
+
+    if (!pages) {
+      status(400).send({ message: "O campo 'pages' é obrigatório" });
+    }
+
     const updatedBook = await Book.findByIdAndUpdate(id, req.body, {
       new: true,
     });
+
     if (!updatedBook) {
-      res.status(404).send({ message: "Livro não encontrado" });
+      return res.status(404).send({ message: "Livro não encontrado" });
     }
+
     res.status(200).send({
       message: "Livro atualizado com sucesso",
       book: updatedBook,
