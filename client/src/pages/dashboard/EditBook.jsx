@@ -22,12 +22,15 @@ const EditBook = () => {
   } = useFetchBookByIdQuery(id);
   const [updateBook] = useUpdateBookMutation();
   const { register, handleSubmit, setValue, reset } = useForm();
+
   useEffect(() => {
     if (bookData) {
       setValue("title", bookData.title);
+      setValue("author", bookData.author);
       setValue("description", bookData.description);
       setValue("category", bookData?.category);
       setValue("trending", bookData.trending);
+      setValue("pages", bookData.pages);
       setValue("oldPrice", bookData.oldPrice);
       setValue("newPrice", bookData.newPrice);
       setValue("coverImage", bookData.coverImage);
@@ -49,9 +52,11 @@ const EditBook = () => {
 
     const updateBookData = {
       title: data.title,
+      author: data.author,
       description: data.description,
       category: data.category,
       trending: data.trending,
+      pages: Number(data.pages),
       oldPrice: Number(data.oldPrice),
       newPrice: Number(data.newPrice),
       coverImage: data.coverImage || bookData.coverImage,
@@ -90,7 +95,7 @@ const EditBook = () => {
   };
 
   if (isLoading) return <Loading />;
-  if (isError) return <div>Error fetching book data</div>;
+  if (isError) return <div>Error ao buscar informações do livro</div>;
   return (
     <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Update Book</h2>
@@ -100,6 +105,13 @@ const EditBook = () => {
           label="Title"
           name="title"
           placeholder="Enter book title"
+          register={register}
+        />
+
+        <InputField
+          label="Autor"
+          name="author"
+          placeholder="Insira o nome do autor"
           register={register}
         />
 
@@ -136,6 +148,14 @@ const EditBook = () => {
             </span>
           </label>
         </div>
+
+        <InputField
+          label="Número de Páginas"
+          name="pages"
+          type="number"
+          placeholder="Número de páginas"
+          register={register}
+        />
 
         <InputField
           label="Antigo Preço"
