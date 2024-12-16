@@ -20,6 +20,8 @@ const AddBook = () => {
   const onSubmit = async (data) => {
     const newBookData = {
       ...data,
+      pages: Number(data.pages),
+      author: data.author,
       coverImage: imageFileName,
     };
     try {
@@ -28,17 +30,17 @@ const AddBook = () => {
         title: "Livro adicionado",
         text: "Seu livro foi adicionado com sucesso!",
         icon: "success",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, It's Okay!",
       });
       reset();
       setImageFileName("");
       setImageFile(null);
     } catch (error) {
       console.error(error);
-      alert("Failed to add book. Please try again.");
+      Swal.fire({
+        title: "Error ao adicionar livro",
+        icon: "error",
+        confirmButtonText: "Por favor, tente novamente.",
+      });
     }
   };
 
@@ -51,13 +53,22 @@ const AddBook = () => {
   };
 
   return (
-    <div className="max-w-lg   mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Book</h2>
+    <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">
+        Adicionar novo livro
+      </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="">
         <InputField
           label="Titulo"
           name="title"
           placeholder="Insira o título do livro"
+          register={register}
+        />
+
+        <InputField
+          label="Autor"
+          name="author"
+          placeholder="Insira o nome do autor"
           register={register}
         />
 
@@ -95,6 +106,15 @@ const AddBook = () => {
             </span>
           </label>
         </div>
+
+        <InputField
+          label="Número de Páginas"
+          name="pages"
+          type="number"
+          placeholder="Insira o número de páginas"
+          register={register}
+          className="appearance-none"
+        />
 
         <InputField
           label="Preço antigo"
