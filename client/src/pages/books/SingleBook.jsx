@@ -5,14 +5,33 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cartSlice";
 import { useFetchBookByIdQuery } from "../../redux/api/booksApi";
 import Loading from "../../components/Loading";
+import { useState } from "react";
 
 const SingleBook = () => {
   const { id } = useParams();
   const { data: book, isLoading, isError } = useFetchBookByIdQuery(id);
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
+  const handleMouseMove = (e) => {
+    const { offsetX, offsetY } = e.nativeEvent;
+    setMousePosition({
+      x: offsetX,
+      y: offsetY,
+    });
   };
 
   if (isLoading) return <Loading />;
@@ -24,11 +43,31 @@ const SingleBook = () => {
         <h1 className="text-3xl font-bold mb-6 text-center">{book.title}</h1>
 
         <div className="flex flex-col md:flex-row gap-8 flex-grow">
-          <div className="flex-shrink-0 mt-8 md:mt-12">
+          <div
+            className="flex-shrink-0 mt-8 md:mt-12 relative overflow-hidden"
+            style={{
+              width: "100%",
+              height: "auto",
+            }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onMouseMove={handleMouseMove}
+          >
             <img
               src={`${getImgUrl(book.coverImage)}`}
               alt={book.title}
-              className="w-full max-w-sm mx-auto md:mx-0"
+              className="w-full max-w-sm mx-auto md:mx-0 transition-transform duration-300"
+              style={{
+                transform: isHovered
+                  ? `scale(3) translate(-${mousePosition.x / 10}px, -${
+                      mousePosition.y / 10
+                    }px)`
+                  : "scale(1)",
+                transformOrigin: "center center",
+                transition: "transform 0.3s ease",
+                width: "100%",
+                height: "auto",
+              }}
             />
           </div>
 
