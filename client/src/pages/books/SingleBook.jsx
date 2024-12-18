@@ -12,7 +12,7 @@ const SingleBook = () => {
   const { data: book, isLoading, isError } = useFetchBookByIdQuery(id);
   const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [transformOrigin, setTransformOrigin] = useState("center center");
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -27,72 +27,77 @@ const SingleBook = () => {
   };
 
   const handleMouseMove = (e) => {
-    const { offsetX, offsetY } = e.nativeEvent;
-    setMousePosition({
-      x: offsetX,
-      y: offsetY,
-    });
+    const { offsetX, offsetY, target } = e.nativeEvent;
+    const { offsetWidth, offsetHeight } = target;
+
+    const xPercent = (offsetX / offsetWidth) * 100;
+    const yPercent = (offsetY / offsetHeight) * 100;
+
+    setTransformOrigin(`${xPercent}% ${yPercent}%`);
   };
 
   if (isLoading) return <Loading />;
   if (isError) return <div>Error ao buscar informações do livro</div>;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-4xl shadow-md p-12 bg-white rounded min-h-[600px] flex flex-col justify-between">
-        <h1 className="text-3xl font-bold mb-6 text-center">{book.title}</h1>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 p-6">
+      <div className="w-full max-w-5xl bg-white shadow-xl rounded-lg p-8 space-y-6">
+        <h1 className="text-3xl font-bold text-center text-gray-800">
+          {book.title}
+        </h1>
 
-        <div className="flex flex-col md:flex-row gap-8 flex-grow">
+        <div className="flex flex-col md:flex-row gap-8 items-stretch">
           <div
-            className="flex-shrink-0 mt-8 md:mt-12 relative overflow-hidden"
-            style={{
-              width: "100%",
-              height: "auto",
-            }}
+            className="relative overflow-hidden rounded-lg w-full max-w-sm mx-auto shadow-md"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseMove={handleMouseMove}
           >
             <img
-              src={`${getImgUrl(book.coverImage)}`}
+              src={getImgUrl(book.coverImage)}
               alt={book.title}
-              className="w-full max-w-sm mx-auto md:mx-0 transition-transform duration-300"
+              className="w-full h-full object-cover rounded-lg transition-transform duration-300"
               style={{
-                transform: isHovered
-                  ? `scale(3) translate(-${mousePosition.x / 10}px, -${
-                      mousePosition.y / 10
-                    }px)`
-                  : "scale(1)",
-                transformOrigin: "center center",
+                transform: isHovered ? "scale(2)" : "scale(1)",
+                transformOrigin: transformOrigin,
                 transition: "transform 0.3s ease",
-                width: "100%",
-                height: "auto",
               }}
             />
           </div>
 
-          <div className="flex-1 mt-8 md:mt-12">
-            <p className="text-gray-700 mb-6">
-              <strong>Autor:</strong> {book.author || "admin"}
-            </p>
-            <p className="text-gray-700 mb-6 capitalize">
-              <strong>Categoria:</strong> {book?.category}
-            </p>
-            <p className="text-gray-700 mb-6">
-              <strong>Descrição:</strong> {book.description}
-            </p>
-            <p className="text-gray-700 mb-6">
-              <strong>Páginas:</strong> {book.pages || "Não informado"}
-            </p>
+          <div className="flex-1 space-y-6 text-gray-700 flex flex-col justify-between">
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-gray-900">Autor</p>
+              <p className="text-lg text-gray-600">{book.author || "admin"}</p>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-gray-900">Categoria</p>
+              <p className="text-lg text-gray-600 capitalize">
+                {book?.category}
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-gray-900">Descrição</p>
+              <p className="text-lg text-gray-600">{book.description}</p>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-sm font-semibold text-gray-900">Páginas</p>
+              <p className="text-lg text-gray-600">
+                {book.pages || "Não informado"}
+              </p>
+            </div>
           </div>
         </div>
 
         <button
           onClick={() => handleAddToCart(book)}
-          className="btn-primary w-full px-6 py-5 flex items-center justify-center gap-1 space-x-1"
+          className="btn-primary w-full px-6 py-5 flex items-center justify-center gap-1 space-x-1 transition duration-300 hover:shadow-lg"
         >
-          <FiShoppingCart />
-          <span>Adicionar</span>
+          <FiShoppingCart size={20} />
+          <span>Adicionar ao Carrinho</span>
         </button>
       </div>
     </div>
