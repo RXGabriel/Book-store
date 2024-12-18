@@ -4,6 +4,7 @@ import { getImgUrl } from "../../utils/getImgUrl";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cartSlice";
 import { useFetchBookByIdQuery } from "../../redux/api/booksApi";
+import Loading from "../../components/Loading";
 
 const SingleBook = () => {
   const { id } = useParams();
@@ -14,7 +15,7 @@ const SingleBook = () => {
     dispatch(addToCart(product));
   };
 
-  if (isLoading) return <div>Carregando...</div>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>Error ao buscar informações do livro</div>;
 
   return (
@@ -35,7 +36,6 @@ const SingleBook = () => {
             <p className="text-gray-700 mb-6">
               <strong>Autor:</strong> {book.author || "admin"}
             </p>
-
             <p className="text-gray-700 mb-6 capitalize">
               <strong>Categoria:</strong> {book?.category}
             </p>
