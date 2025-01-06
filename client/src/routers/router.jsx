@@ -15,6 +15,10 @@ import Dashboard from "../pages/dashboard/Dashboard.jsx";
 import ManageBooks from "../pages/dashboard/ManageBooks.jsx";
 import AddBook from "../pages/dashboard/AddBook.jsx";
 import EditBook from "../pages/dashboard/EditBook.jsx";
+import AllBooks from "../pages/books/AllBooks.jsx";
+import About from "../pages/info/About.jsx";
+import Contact from "../pages/info/Contact.jsx";
+import NotFound from "../pages/info/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
@@ -33,10 +37,22 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+
       {
         path: "/about",
-        element: <div>About</div>,
+        element: <About />,
       },
+
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+
+      {
+        path: "/books",
+        element: <AllBooks />,
+      },
+
       {
         path: "/login",
         element: <Login />,
@@ -110,6 +126,11 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
