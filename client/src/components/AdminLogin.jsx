@@ -103,7 +103,7 @@ const AdminLogin = () => {
           )}
 
           <div>
-            <button className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded focus:outline-none">
+            <button className="w-full bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-8 rounded focus:outline-none">
               Login
             </button>
           </div>
