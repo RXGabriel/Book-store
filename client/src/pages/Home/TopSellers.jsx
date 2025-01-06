@@ -8,19 +8,25 @@ import "swiper/css/navigation";
 import { useFetchAllBooksQuery } from "../../redux/api/booksApi";
 
 const categories = [
-  "Escolher um genero",
-  "Business",
-  "Fiction",
+  "Escolher um gênero",
+  "Ficção",
   "Horror",
-  "Adventure",
+  "Infantil",
+  "Tecnologia",
+  "Negócios",
+  "Mistério",
+  "Fantasia",
+  "Drama",
+  "Filosofia",
+  "Romance",
 ];
 
 const TopSellers = () => {
   const [selectedCategory, setSelectedCategory] =
-    useState("Escolher um genero");
+    useState("Escolher um gênero");
   const { data: books = [] } = useFetchAllBooksQuery();
   const filteredBooks =
-    selectedCategory === "Escolher um genero"
+    selectedCategory === "Escolher um gênero"
       ? books
       : books.filter(
           (book) => book.category === selectedCategory.toLowerCase()
