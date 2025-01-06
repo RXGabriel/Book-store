@@ -49,10 +49,6 @@ const CheckoutPage = () => {
         title: "Pedido Confirmado",
         text: "Seu pedido foi realizado com sucesso!",
         icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sim, está tudo certo!",
       });
       navigate("/orders");
     } catch (error) {
