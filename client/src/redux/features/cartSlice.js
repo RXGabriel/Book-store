@@ -27,9 +27,7 @@ const cartSlice = createSlice({
           title: "Item já está no carrinho",
           text: "Você não pode adicionar o mesmo item mais de uma vez",
           icon: "error",
-          showCancelButton: true,
           confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
           confirmButtonText: "OK!",
         });
       }
