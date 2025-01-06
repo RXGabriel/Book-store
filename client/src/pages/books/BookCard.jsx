@@ -45,7 +45,7 @@ const BookCard = ({ book }) => {
             className="btn-primary px-6 space-x-1 flex items-center gap-1 "
           >
             <FiShoppingCart className="" />
-            <span>Adicionar ao carrinho</span>
+            <span>Adicionar</span>
           </button>
         </div>
       </div>
