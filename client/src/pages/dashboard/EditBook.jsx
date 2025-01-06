@@ -128,11 +128,17 @@ const EditBook = () => {
           name="category"
           options={[
             { value: "", label: "Escolha uma categoria" },
-            { value: "business", label: "Business" },
-            { value: "technology", label: "Technology" },
-            { value: "fiction", label: "Fiction" },
             { value: "horror", label: "Horror" },
-            { value: "adventure", label: "Adventure" },
+            { value: "infantil", label: "Infantil" },
+            { value: "romance", label: "Romance" },
+            { value: "aventura", label: "Aventura" },
+            { value: "tecnologia", label: "Tecnologia" },
+            { value: "negócios", label: "Negócios" },
+            { value: "mistério", label: "Mistério" },
+            { value: "fantasia", label: "Fantasia" },
+            { value: "drama", label: "Drama" },
+            { value: "ficção", label: "Ficção" },
+            { value: "filosofia", label: "Filosofia" },
           ]}
           register={register}
         />
