@@ -8,16 +8,18 @@ const Banner = () => {
       </div>
 
       <div className="md:w-1/2 w-full">
-        <h1 className="md:text-5xl text-2xl font-medium mb-7">
+        <h1 className="md:text-5xl text-2xl font-medium mb-7 text-[#212121]">
           Novos lançamentos desta semana
         </h1>
-        <p className="mb-10">
+        <p className="mb-10 text-[#616161]">
           É hora de atualizar sua lista de leitura com alguns dos maiores e mais
           recentes lançamentos do mundo literário. De thrillers emocionantes a
           memórias cativantes, os novos lançamentos desta semana oferecem algo
-          para todos
+          para todos.
         </p>
-        <button className="btn-primary">Inscrever-se</button>
+        <button className="px-6 py-3 bg-[#FFC107] text-[#000000] rounded-md hover:bg-[#FFD54F] transition">
+          Inscrever-se
+        </button>
       </div>
     </div>
   );
