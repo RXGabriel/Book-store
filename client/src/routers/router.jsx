@@ -19,6 +19,7 @@ import AllBooks from "../pages/books/AllBooks.jsx";
 import About from "../pages/info/About.jsx";
 import Contact from "../pages/info/Contact.jsx";
 import NotFound from "../pages/info/NotFound.jsx";
+import Service from "../pages/info/Service.jsx";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +47,11 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+      },
+
+      {
+        path: "/services",
+        element: <Service />,
       },
 
       {
