@@ -55,21 +55,22 @@ const CartPage = () => {
                       <div className="ml-4 flex flex-1 flex-col">
                         <div>
                           <div className="flex flex-wrap justify-between text-base font-medium text-gray-900">
-                            <h3>
+                            <h3 className="mb-2">
                               <Link to="/">{product?.title}</Link>
                             </h3>
                             <p className="sm:ml-4">R${product?.newPrice}</p>
                           </div>
-                          <p className="mt-1 text-sm text-gray-500 capitalize">
-                            <strong>Categoria: </strong>
-                            {product?.category}
-                          </p>
+                          <div className="flex flex-wrap justify-between text-sm text-gray-500 capitalize">
+                            <p>
+                              <strong>Categoria: </strong>
+                              {product?.category}
+                            </p>
+                            <p>
+                              <strong>Quantidade:</strong> 1
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm">
-                          <p className="text-gray-500">
-                            <strong>Qty:</strong> 1
-                          </p>
-
+                        <div className="flex flex-1 flex-wrap items-end justify-between space-y-2 text-sm mt-2">
                           <div className="flex">
                             <button
                               onClick={() => handleRemoveFromCart(product)}
