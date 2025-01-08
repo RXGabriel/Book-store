@@ -10,23 +10,23 @@ const Footer = () => {
           <img src={footerLogo} alt="Logo" className="mb-5 w-36" />
           <ul className="flex flex-col md:flex-row gap-4">
             <li>
-              <Link to="/">
-                <a className="hover:text-primary">Início</a>
+              <Link to="/" className="hover:text-primary">
+                Início
               </Link>
             </li>
             <li>
-              <a href="#services" className="hover:text-primary">
+              <Link to="/services" className="hover:text-primary">
                 Serviços
-              </a>
-            </li>
-            <li>
-              <Link to="/about">
-                <a className="hover:text-primary">Sobre nós</a>
               </Link>
             </li>
             <li>
-              <Link to="/contact">
-                <a className="hover:text-primary">Contato</a>
+              <Link to="/about" className="hover:text-primary">
+                Sobre nós
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-primary">
+                Contato
               </Link>
             </li>
           </ul>
@@ -53,14 +53,14 @@ const Footer = () => {
       <div className="container mx-auto flex flex-col md:flex-row justify-between items-center mt-10 border-t border-gray-700 pt-6">
         <ul className="flex gap-6 mb-4 md:mb-0">
           <li>
-            <a href="#privacy" className="hover:text-primary">
+            <Link to="/privacy" className="hover:text-primary">
               Política de Privacidade
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#terms" className="hover:text-primary">
+            <Link to="/terms" className="hover:text-primary">
               Termos de Serviço
-            </a>
+            </Link>
           </li>
         </ul>
 
