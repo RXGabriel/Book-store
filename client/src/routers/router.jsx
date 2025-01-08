@@ -20,6 +20,8 @@ import About from "../pages/info/About.jsx";
 import Contact from "../pages/info/Contact.jsx";
 import NotFound from "../pages/info/NotFound.jsx";
 import Service from "../pages/info/Service.jsx";
+import Terms from "../pages/info/Terms.jsx";
+import PrivacyPolicy from "../pages/info/Policy.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +54,16 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Service />,
+      },
+
+      {
+        path: "/terms",
+        element: <Terms />,
+      },
+
+      {
+        path: "/privacy",
+        element: <PrivacyPolicy />,
       },
 
       {
