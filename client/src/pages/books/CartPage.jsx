@@ -18,6 +18,7 @@ const CartPage = () => {
   const handleClearCart = () => {
     dispatch(clearCart());
   };
+
   return (
     <>
       <div className="flex mt-12 h-full flex-col overflow-hidden bg-white shadow-xl">
@@ -30,7 +31,7 @@ const CartPage = () => {
               <button
                 type="button"
                 onClick={handleClearCart}
-                className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200  "
+                className="relative -m-2 py-1 px-2 bg-red-500 text-white rounded-md hover:bg-secondary transition-all duration-200"
               >
                 <span>Limpar carrinho</span>
               </button>
@@ -99,12 +100,21 @@ const CartPage = () => {
             Frete e impostos calculados na finalização da compra
           </p>
           <div className="mt-6">
-            <Link
-              to="/checkout"
-              className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
-            >
-              Checkout
-            </Link>
+            {cartItems.length > 0 ? (
+              <Link
+                to="/checkout"
+                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+              >
+                Checkout
+              </Link>
+            ) : (
+              <button
+                disabled
+                className="flex items-center justify-center rounded-md border border-transparent bg-gray-400 px-6 py-3 text-base font-medium text-white shadow-sm cursor-not-allowed"
+              >
+                Checkout
+              </button>
+            )}
           </div>
           <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
             <Link to="/">
