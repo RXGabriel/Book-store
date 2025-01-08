@@ -22,12 +22,19 @@ const SingleBook = () => {
 
   useEffect(() => {
     if (book && allBooks) {
+      const recommendedBooksSet = new Set();
+
       const recommendedByAuthor = allBooks.filter(
         (b) => b.author === book.author && b._id !== book._id
       );
 
+      recommendedByAuthor.forEach((b) => recommendedBooksSet.add(b._id));
+
       const recommendedByCategory = allBooks.filter(
-        (b) => b.category === book.category && b._id !== book._id
+        (b) =>
+          b.category === book.category &&
+          b._id !== book._id &&
+          !recommendedBooksSet.has(b._id)
       );
 
       const shuffle = (array) => {
@@ -40,10 +47,12 @@ const SingleBook = () => {
 
       const recommendedCategoryRandom = recommendedByCategory.slice(0, 3);
 
-      setRecommendedBooks([
+      const combinedRecommendations = [
         ...recommendedByAuthor,
         ...recommendedCategoryRandom,
-      ]);
+      ];
+
+      setRecommendedBooks(combinedRecommendations);
     }
   }, [book, allBooks]);
 
