@@ -13,7 +13,6 @@ import Swal from "sweetalert2";
 const navigation = [
   { name: "Pedidos", href: "/orders" },
   { name: "Carrinho", href: "/cart" },
-  { name: "Check-Out", href: "/checkout" },
 ];
 
 const Navbar = () => {
@@ -54,16 +53,17 @@ const Navbar = () => {
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-6">
       <nav className="flex justify-between items-center">
+        {/* Left section: Home and Search */}
         <div className="flex items-center md:gap-16 gap-4">
           {location.pathname !== "/" && (
             <Link to="/">
-              <IoHomeOutline className="size-5" />
+              <IoHomeOutline className="size-5 text-yellow-500" />
             </Link>
           )}
 
           {location.pathname === "/" && (
             <div className="relative sm:w-72 w-40 space-x-2">
-              <IoSearchOutline className="absolute inline-block left-3 inset-y-2" />
+              <IoSearchOutline className="absolute inline-block left-3 inset-y-2 text-yellow-500" />
               <input
                 type="text"
                 value={query}
@@ -95,6 +95,20 @@ const Navbar = () => {
           )}
         </div>
 
+        {/* Center section: Links */}
+        <div className="flex items-center justify-center flex-grow space-x-8">
+          <Link to="/books" className="text-yellow-500 font-semibold">
+            Livros
+          </Link>
+          <Link to="/about" className="text-yellow-500 font-semibold">
+            Sobre Nós
+          </Link>
+          <Link to="/contact" className="text-yellow-500 font-semibold">
+            Contato
+          </Link>
+        </div>
+
+        {/* Right section: User, Wishlist, and Cart */}
         <div className="relative flex items-center md:space-x-3 space-x-2">
           <div>
             {currentUser ? (
@@ -142,27 +156,23 @@ const Navbar = () => {
               </Link>
             ) : (
               <Link to="/login">
-                <HiOutlineUser className="size-6" />
+                <HiOutlineUser className="size-6 text-yellow-500" />
               </Link>
             )}
           </div>
 
           <button className="hidden sm:block">
-            <HiOutlineHeart className="size-6" />
+            <HiOutlineHeart className="size-6 text-yellow-500" />
           </button>
 
           <Link
             to="/cart"
             className="bg-primary p-1 sm:px-6 px-2 flex items-center rounded-sm"
           >
-            <HiOutlineShoppingCart className="" />
-            {cartItems.length > 0 ? (
-              <span className="text-sm font-semibold sm:ml-1">
-                {cartItems.length}
-              </span>
-            ) : (
-              <span className="text-sm font-semibold sm:ml-1">0</span>
-            )}
+            <HiOutlineShoppingCart className="text-yellow-500" />
+            <span className="text-sm font-semibold sm:ml-1">
+              {cartItems.length > 0 ? cartItems.length : 0}
+            </span>
           </Link>
         </div>
       </nav>
