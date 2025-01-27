@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import InputField from "../../components/InputField";
 import SelectField from "../../components/SelectField";
 import { useForm } from "react-hook-form";
@@ -22,6 +22,8 @@ const EditBook = () => {
   } = useFetchBookByIdQuery(id);
   const [updateBook] = useUpdateBookMutation();
   const { register, handleSubmit, setValue, reset } = useForm();
+  const [imageFile, setImageFile] = useState(null);
+  const [imageFileName, setImageFileName] = useState("");
 
   useEffect(() => {
     if (bookData) {
@@ -34,8 +36,17 @@ const EditBook = () => {
       setValue("oldPrice", bookData.oldPrice);
       setValue("newPrice", bookData.newPrice);
       setValue("coverImage", bookData.coverImage);
+      setImageFileName(bookData.coverImage);
     }
   }, [bookData, setValue]);
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImageFile(file);
+      setImageFileName(file.name);
+    }
+  };
 
   const onSubmit = async (data) => {
     const token = localStorage.getItem("token");
@@ -59,7 +70,7 @@ const EditBook = () => {
       pages: Number(data.pages),
       oldPrice: Number(data.oldPrice),
       newPrice: Number(data.newPrice),
-      coverImage: data.coverImage || bookData.coverImage,
+      coverImage: imageFileName || bookData.coverImage,
     };
 
     try {
@@ -179,13 +190,20 @@ const EditBook = () => {
           register={register}
         />
 
-        <InputField
-          label="URL da imagem de capa"
-          name="coverImage"
-          type="text"
-          placeholder="Cover Image URL"
-          register={register}
-        />
+        <div className="mb-4">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Imagem do livro
+          </label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="mb-2 w-full"
+          />
+          {imageFileName && (
+            <p className="text-sm text-gray-500">Selected: {imageFileName}</p>
+          )}
+        </div>
 
         <button
           type="submit"
