@@ -23,6 +23,7 @@ const AllBooks = () => {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredBooks = allBooks.filter((book) => {
     const matchCategory =
@@ -31,7 +32,10 @@ const AllBooks = () => {
     const matchPrice =
       (!minPrice || book.newPrice >= parseFloat(minPrice)) &&
       (!maxPrice || book.newPrice <= parseFloat(maxPrice));
-    return matchCategory && matchPrice;
+    const matchSearchTerm =
+      !searchTerm ||
+      book.title.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchCategory && matchPrice && matchSearchTerm;
   });
 
   if (isLoading) return <Loading />;
@@ -80,6 +84,17 @@ const AllBooks = () => {
             placeholder="Máximo"
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
+            className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
+          />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <label className="text-sm font-medium text-gray-800">Pesquisa:</label>
+          <input
+            type="text"
+            placeholder="Buscar livros..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
           />
         </div>
