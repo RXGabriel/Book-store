@@ -9,7 +9,6 @@ const categories = [
   "Ficção",
   "Horror",
   "Infantil",
-  "Tecnologia",
   "Negócios",
   "Mistério",
   "Fantasia",

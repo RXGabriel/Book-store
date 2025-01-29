@@ -89,7 +89,6 @@ const AddBook = () => {
             { value: "infantil", label: "Infantil" },
             { value: "romance", label: "Romance" },
             { value: "aventura", label: "Aventura" },
-            { value: "tecnologia", label: "Tecnologia" },
             { value: "negócios", label: "Negócios" },
             { value: "mistério", label: "Mistério" },
             { value: "fantasia", label: "Fantasia" },

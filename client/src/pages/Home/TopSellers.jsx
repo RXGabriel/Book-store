@@ -1,5 +1,5 @@
 import { useState } from "react";
-import BookCard from "../Books/BookCard";
+import BookCard from "../books/BookCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -12,7 +12,6 @@ const categories = [
   "Ficção",
   "Horror",
   "Infantil",
-  "Tecnologia",
   "Negócios",
   "Mistério",
   "Fantasia",
