@@ -129,7 +129,7 @@ const EditBook = () => {
         <InputField
           label="Descrição"
           name="description"
-          placeholder="Insira a descrição do livro"
+          placeholder="Insira a sinopse do livro"
           type="textarea"
           register={register}
         />

@@ -57,7 +57,7 @@ const AddBook = () => {
       <h2 className="text-2xl font-bold text-gray-800 mb-4">
         Adicionar novo livro
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <InputField
           label="Titulo"
           name="title"
@@ -75,7 +75,7 @@ const AddBook = () => {
         <InputField
           label="Descrição"
           name="description"
-          placeholder="Insira a descrição do livro"
+          placeholder="Insira a sinopse do livro"
           type="textarea"
           register={register}
         />

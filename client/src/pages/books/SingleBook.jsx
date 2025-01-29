@@ -121,7 +121,7 @@ const SingleBook = () => {
             </div>
 
             <div className="space-y-1">
-              <p className="text-sm font-semibold text-gray-900">Descrição</p>
+              <p className="text-sm font-semibold text-gray-900">Sinopse</p>
               <p className="text-lg text-gray-600">{book.description}</p>
             </div>
 
