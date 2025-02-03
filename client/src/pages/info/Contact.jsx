@@ -16,7 +16,7 @@ const Contact = () => {
           <div className="w-[23%]">
             <h3 className="text-[18px] font-Poppins text-[#212121]">E-mail</h3>
             <p className="text-[16px] font-Poppins text-[#616161]">
-              contato@easyshop.com
+              contato@EasyBooks.com
             </p>
           </div>
           <div className="w-[23%]">
