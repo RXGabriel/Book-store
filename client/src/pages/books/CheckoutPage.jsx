@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { useCreateOrderMutation } from "../../redux/api/ordersApi";
+import { useCreatePaypalPaymentMutation } from "../../redux/api/booksApi";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import Swal from "sweetalert2";
@@ -10,10 +11,12 @@ import Loading from "../../components/Loading";
 const CheckoutPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const { currentUser } = useAuth();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, getValues } = useForm();
   const [createOrder, { isLoading }] = useCreateOrderMutation();
+  const [createPaypalPayment] = useCreatePaypalPaymentMutation();
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
+  const [step, setStep] = useState(1);
 
   const totalPrice = cartItems
     .reduce((acc, item) => acc + item.newPrice, 0)
@@ -57,6 +60,28 @@ const CheckoutPage = () => {
     }
   };
 
+  const handleNextStep = () => {
+    setStep(step + 1);
+  };
+
+  const handlePreviousStep = () => {
+    setStep(step - 1);
+  };
+
+  const handlePayPalPayment = async () => {
+    try {
+      const response = await createPaypalPayment(totalPrice).unwrap();
+      window.location.href = response.forwardLink;
+    } catch (error) {
+      console.error("Erro ao criar pagamento PayPal", error);
+      Swal.fire({
+        title: "Erro",
+        text: "Ocorreu um erro ao processar o pagamento.",
+        icon: "error",
+      });
+    }
+  };
+
   if (isLoading) return <Loading />;
 
   return (
@@ -79,106 +104,125 @@ const CheckoutPage = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 my-8"
               >
-                <div className="text-gray-600">
-                  <p className="font-medium text-lg">Detalhes pessoais</p>
-                  <p>Preencha todos os campos.</p>
-                </div>
-
-                <div className="lg:col-span-2">
-                  <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                    <div className="md:col-span-5">
-                      <label htmlFor="full_name">Nome completo</label>
-                      <input
-                        {...register("name", { required: true })}
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
+                {step === 1 && (
+                  <>
+                    {/* Personal Details Section */}
+                    <div className="text-gray-600">
+                      <p className="font-medium text-lg">Detalhes pessoais</p>
+                      <p>Preencha todos os campos.</p>
                     </div>
 
-                    <div className="md:col-span-5">
-                      <label htmlFor="email">Email</label>
-                      <input
-                        type="text"
-                        name="email"
-                        id="email"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                        disabled
-                        defaultValue={currentUser?.email}
-                        placeholder="email@domain.com"
-                      />
-                    </div>
-                    <div className="md:col-span-5">
-                      <label htmlFor="phone">Número de telefone</label>
-                      <input
-                        {...register("phone", { required: true })}
-                        type="number"
-                        name="phone"
-                        id="phone"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 appearance-none"
-                        placeholder="+123 456 7890"
-                      />
-                    </div>
+                    <div className="lg:col-span-2">
+                      <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
+                        <div className="md:col-span-5">
+                          <label htmlFor="full_name">Nome completo</label>
+                          <input
+                            {...register("name", { required: true })}
+                            type="text"
+                            name="name"
+                            id="name"
+                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          />
+                        </div>
 
-                    <div className="md:col-span-3">
-                      <label htmlFor="address">Endereço / Rua</label>
-                      <input
-                        {...register("address", { required: true })}
-                        type="text"
-                        name="address"
-                        id="address"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
+                        <div className="md:col-span-5">
+                          <label htmlFor="email">Email</label>
+                          <input
+                            type="text"
+                            name="email"
+                            id="email"
+                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                            disabled
+                            defaultValue={currentUser?.email}
+                            placeholder="email@domain.com"
+                          />
+                        </div>
+                        <div className="md:col-span-5">
+                          <label htmlFor="phone">Número de telefone</label>
+                          <input
+                            {...register("phone", { required: true })}
+                            type="number"
+                            name="phone"
+                            id="phone"
+                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 appearance-none"
+                            placeholder="+123 456 7890"
+                          />
+                        </div>
 
-                    <div className="md:col-span-2">
-                      <label htmlFor="city">Cidade</label>
-                      <input
-                        {...register("city", { required: true })}
-                        type="text"
-                        name="city"
-                        id="city"
-                        className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
+                        <div className="md:col-span-3">
+                          <label htmlFor="address">Endereço / Rua</label>
+                          <input
+                            {...register("address", { required: true })}
+                            type="text"
+                            name="address"
+                            id="address"
+                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          />
+                        </div>
 
-                    <div className="md:col-span-2">
-                      <label htmlFor="country">País / Região</label>
-                      <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                        <input
-                          {...register("country", { required: true })}
-                          name="country"
-                          id="country"
-                          className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                        />
+                        <div className="md:col-span-2">
+                          <label htmlFor="city">Cidade</label>
+                          <input
+                            {...register("city", { required: true })}
+                            type="text"
+                            name="city"
+                            id="city"
+                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          />
+                        </div>
+
+                        <div className="md:col-span-2">
+                          <label htmlFor="country">País / Região</label>
+                          <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                            <input
+                              {...register("country", { required: true })}
+                              name="country"
+                              id="country"
+                              className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="md:col-span-2">
+                          <label htmlFor="state">Estado / província</label>
+                          <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
+                            <input
+                              {...register("state", { required: true })}
+                              name="state"
+                              type="text"
+                              id="state"
+                              className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="md:col-span-1">
+                          <label htmlFor="zipcode">Zipcode</label>
+                          <input
+                            {...register("zipcode", { required: true })}
+                            type="text"
+                            name="zipcode"
+                            id="zipcode"
+                            className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          />
+                        </div>
                       </div>
                     </div>
-
-                    <div className="md:col-span-2">
-                      <label htmlFor="state">Estado / província</label>
-                      <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                        <input
-                          {...register("state", { required: true })}
-                          name="state"
-                          type="text"
-                          id="state"
-                          className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                        />
-                      </div>
+                    <div className="md:col-span-5 text-right">
+                      <button
+                        type="button"
+                        onClick={handleNextStep}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                        Próximo
+                      </button>
                     </div>
+                  </>
+                )}
 
-                    <div className="md:col-span-1">
-                      <label htmlFor="zipcode">Zipcode</label>
-                      <input
-                        {...register("zipcode", { required: true })}
-                        type="text"
-                        name="zipcode"
-                        id="zipcode"
-                        className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                      />
-                    </div>
-
+                {step === 2 && (
+                  <>
+                    {/* Terms and Conditions Section */}
                     <div className="md:col-span-5 mt-3">
                       <div className="inline-flex items-center">
                         <input
@@ -190,26 +234,65 @@ const CheckoutPage = () => {
                         />
                         <label htmlFor="billing_same" className="ml-2 ">
                           Eu concordo com{" "}
-                          <Link className="underline underline-offset-2 text-blue-600">
+                          <Link
+                            to="/terms"
+                            className="underline underline-offset-2 text-blue-600"
+                          >
                             Termos e Condições
                           </Link>{" "}
                           e{" "}
-                          <Link className="underline underline-offset-2 text-blue-600">
+                          <Link
+                            to="/privacy"
+                            className="underline underline-offset-2 text-blue-600"
+                          >
                             Política de compras
                           </Link>
                         </label>
                       </div>
                     </div>
+                    <div className="md:col-span-5 text-right">
+                      <button
+                        type="button"
+                        onClick={handlePreviousStep}
+                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
+                      >
+                        Voltar
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleNextStep}
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        disabled={!isChecked}
+                      >
+                        Próximo
+                      </button>
+                    </div>
+                  </>
+                )}
 
+                {step === 3 && (
+                  <>
+                    {/* Payment Section */}
                     <div className="md:col-span-5 text-right">
                       <div className="inline-flex items-end">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                          Faça um pedido
+                        <button
+                          type="button"
+                          onClick={handlePreviousStep}
+                          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
+                        >
+                          Voltar
+                        </button>
+                        <button
+                          type="button"
+                          onClick={handlePayPalPayment}
+                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        >
+                          Pagar com PayPal
                         </button>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </>
+                )}
               </form>
             </div>
           </div>

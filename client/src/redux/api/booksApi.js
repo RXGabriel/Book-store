@@ -56,6 +56,18 @@ const booksApi = createApi({
       }),
       invalidatesTags: ["Books"],
     }),
+    createPaypalPayment: builder.mutation({
+      query: (totalPrice) => ({
+        url: `/paypal/create-payment`,
+        method: "POST",
+        body: { totalPrice },
+      }),
+    }),
+    executePaypalPayment: builder.query({
+      query: ({ paymentId, PayerID }) => ({
+        url: `/paypal/execute-payment?paymentId=${paymentId}&PayerID=${PayerID}`,
+      }),
+    }),
   }),
 });
 
@@ -66,5 +78,7 @@ export const {
   useUpdateBookMutation,
   useSearchBooksQuery,
   useDeleteBookMutation,
+  useCreatePaypalPaymentMutation,
+  useExecutePaypalPaymentQuery,
 } = booksApi;
 export default booksApi;
