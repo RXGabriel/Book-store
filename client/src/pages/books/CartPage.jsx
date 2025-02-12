@@ -75,7 +75,7 @@ const CartPage = () => {
                             <button
                               onClick={() => handleRemoveFromCart(product)}
                               type="button"
-                              className="font-medium text-indigo-600 hover:text-indigo-500"
+                              className="font-medium text-[#577BC1] hover:text-[#E6D400]"
                             >
                               Remover
                             </button>
@@ -104,7 +104,7 @@ const CartPage = () => {
             {cartItems.length > 0 ? (
               <Link
                 to="/checkout"
-                className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+                className="flex items-center justify-center rounded-md border border-transparent bg-[#FFEB00] px-6 py-3 text-base font-medium text-[#000957] shadow-sm hover:bg-[#E6D400]"
               >
                 Checkout
               </Link>
@@ -122,7 +122,7 @@ const CartPage = () => {
               ou
               <button
                 type="button"
-                className="font-medium text-indigo-600 hover:text-indigo-500 ml-1"
+                className="font-medium text-[#577BC1] hover:text-[#E6D400] ml-1"
               >
                 Continue comprando
                 <span aria-hidden="true"> &rarr;</span>
