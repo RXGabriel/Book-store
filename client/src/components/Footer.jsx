@@ -37,13 +37,13 @@ const Footer = () => {
             Assine nossa newsletter para receber as últimas atualizações,
             notícias e ofertas!
           </p>
-          <div className="flex">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
             <input
               type="email"
               placeholder="Adicione seu e-mail"
-              className="w-full px-4 py-2 rounded-l-md text-black"
+              className="w-full px-4 py-2 rounded-t-md sm:rounded-l-md sm:rounded-tr-none text-black text-sm sm:text-base flex-1"
             />
-            <button className="bg-primary px-6 py-2 rounded-r-md hover:bg-primary-dark">
+            <button className="bg-primary px-4 sm:px-6 py-2 rounded-b-md sm:rounded-r-md hover:bg-primary-dark text-sm sm:text-base whitespace-nowrap">
               Inscrever-se
             </button>
           </div>
