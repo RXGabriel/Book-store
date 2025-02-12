@@ -41,99 +41,110 @@ const AllBooks = () => {
   if (isError) return <div>Erro ao buscar livros</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-100 to-gray-300 p-6">
-      <h1 className="text-4xl font-bold text-center mb-8">Todos os Livros</h1>
-
-      <div className="mb-8 flex flex-wrap gap-4 items-center justify-between">
-        <div className="flex items-center gap-2">
-          <label
-            htmlFor="category"
-            className="text-sm font-medium text-gray-800"
-          >
-            Categoria:
-          </label>
-          <select
-            id="category"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
-          >
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-800">
-            Preço (R$):
-          </label>
-          <input
-            type="number"
-            placeholder="Mínimo"
-            value={minPrice}
-            onChange={(e) => setMinPrice(e.target.value)}
-            className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
-          />
-          <span className="text-gray-600">-</span>
-          <input
-            type="number"
-            placeholder="Máximo"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(e.target.value)}
-            className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
-          />
-        </div>
-
-        <div className="flex items-center gap-2">
-          <label className="text-sm font-medium text-gray-800">Pesquisa:</label>
-          <input
-            type="text"
-            placeholder="Buscar livros..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none"
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {filteredBooks.length > 0 ? (
-          filteredBooks.map((book) => (
-            <div
-              key={book._id}
-              className="bg-white shadow-md border rounded-lg overflow-hidden transition-transform transform hover:scale-105"
-            >
-              <Link to={`/books/${book._id}`}>
-                <div className="w-full h-72">
-                  <img
-                    src={getImgUrl(book.coverImage)}
-                    alt={book.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="p-4 flex flex-col">
-                  <h3 className="text-lg font-semibold text-gray-800 line-clamp-2">
-                    {book.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 line-clamp-1">
-                    {book.author}
-                  </p>
-                  <p className="text-lg font-medium text-gray-800 mt-2">
-                    R$ {book.newPrice.toFixed(2)}
-                  </p>
-                </div>
-              </Link>
-            </div>
-          ))
-        ) : (
-          <p className="text-gray-500 col-span-full text-center">
-            Nenhum livro encontrado.
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-8 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-3">
+            Todos os Livros
+          </h1>
+          <p className="text-gray-600 max-w-2xl mx-auto text-sm sm:text-base">
+            Explore nossa coleção completa de livros. Filtre por categoria,
+            preço ou pesquise por títulos específicos.
           </p>
-        )}
+        </div>
+
+        <div className="mb-8 bg-white p-4 sm:p-6 rounded-xl shadow-sm border border-gray-100">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Categoria
+              </label>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#577BC1] focus:border-[#577BC1] transition-all"
+              >
+                {categories.map((category, index) => (
+                  <option key={index} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Faixa de Preço
+              </label>
+              <div className="flex gap-3">
+                <input
+                  type="number"
+                  placeholder="Mínimo"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#577BC1] focus:border-[#577BC1] transition-all"
+                />
+                <input
+                  type="number"
+                  placeholder="Máximo"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#577BC1] focus:border-[#577BC1] transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Pesquisar
+              </label>
+              <input
+                type="text"
+                placeholder="Digite o título..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-4 py-2.5 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#577BC1] focus:border-[#577BC1] transition-all"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 sm:gap-6">
+          {filteredBooks.length > 0 ? (
+            filteredBooks.map((book) => (
+              <div
+                key={book._id}
+                className="bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden group"
+              >
+                <Link to={`/books/${book._id}`} className="block h-full">
+                  <div className="aspect-[2/3] relative overflow-hidden">
+                    <img
+                      src={getImgUrl(book.coverImage)}
+                      alt={book.title}
+                      className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="p-3">
+                    <h3 className="text-sm font-semibold text-gray-800 line-clamp-2 mb-1 group-hover:text-[#577BC1] transition-colors">
+                      {book.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 line-clamp-1 mb-2">
+                      {book.author}
+                    </p>
+                    <p className="text-base font-bold text-[#577BC1]">
+                      R$ {book.newPrice.toFixed(2)}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))
+          ) : (
+            <div className="col-span-full text-center py-10">
+              <p className="text-gray-500">Nenhum livro encontrado.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
