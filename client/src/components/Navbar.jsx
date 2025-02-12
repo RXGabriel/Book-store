@@ -53,7 +53,7 @@ const Navbar = () => {
       <nav className="max-w-screen-2xl mx-auto px-4 py-6 flex justify-between items-center">
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="Logo" className="h-10" />{" "}
+            <img src={logo} alt="Logo" className="h-10" />
             <span className="text-xl md:text-2xl font-bold text-yellow-500">
               EasyBooks
             </span>
@@ -63,19 +63,31 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-2 lg:gap-4 xl:gap-6">
           <Link
             to="/books"
-            className="text-gray-700 hover:text-yellow-500 text-sm lg:text-base"
+            className={`text-sm lg:text-base ${
+              location.pathname === "/books"
+                ? "text-yellow-500"
+                : "text-gray-700 hover:text-yellow-500"
+            }`}
           >
             Livros
           </Link>
           <Link
             to="/about"
-            className="text-gray-700 hover:text-yellow-500 text-sm lg:text-base"
+            className={`text-sm lg:text-base ${
+              location.pathname === "/about"
+                ? "text-yellow-500"
+                : "text-gray-700 hover:text-yellow-500"
+            }`}
           >
             Sobre Nós
           </Link>
           <Link
             to="/contact"
-            className="text-gray-700 hover:text-yellow-500 text-sm lg:text-base"
+            className={`text-sm lg:text-base ${
+              location.pathname === "/contact"
+                ? "text-yellow-500"
+                : "text-gray-700 hover:text-yellow-500"
+            }`}
           >
             Contato
           </Link>
@@ -201,21 +213,33 @@ const Navbar = () => {
           <div className="flex flex-col items-center gap-4 py-4">
             <Link
               to="/books"
-              className="text-gray-700 hover:text-yellow-500"
+              className={`${
+                location.pathname === "/books"
+                  ? "text-yellow-500"
+                  : "text-gray-700 hover:text-yellow-500"
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Livros
             </Link>
             <Link
               to="/about"
-              className="text-gray-700 hover:text-yellow-500"
+              className={`${
+                location.pathname === "/about"
+                  ? "text-yellow-500"
+                  : "text-gray-700 hover:text-yellow-500"
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Sobre Nós
             </Link>
             <Link
               to="/contact"
-              className="text-gray-700 hover:text-yellow-500"
+              className={`${
+                location.pathname === "/contact"
+                  ? "text-yellow-500"
+                  : "text-gray-700 hover:text-yellow-500"
+              }`}
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Contato
