@@ -11,7 +11,12 @@ import Loading from "../../components/Loading";
 const CheckoutPage = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const { currentUser } = useAuth();
-  const { register, handleSubmit, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    trigger,
+  } = useForm();
   const [createOrder, { isLoading }] = useCreateOrderMutation();
   const [createPaypalPayment] = useCreatePaypalPaymentMutation();
   const navigate = useNavigate();
@@ -26,7 +31,7 @@ const CheckoutPage = () => {
     if (cartItems.length === 0) {
       Swal.fire({
         title: "Erro",
-        text: "Adicione pelo menos um produto ao carrinho para realizar o checkout!",
+        text: "Adicione pelo menos um produto ao carrinho!",
         icon: "error",
       });
       return;
@@ -48,254 +53,211 @@ const CheckoutPage = () => {
 
     try {
       await createOrder(newOrder).unwrap();
-      Swal.fire({
-        title: "Pedido Confirmado",
-        text: "Seu pedido foi realizado com sucesso!",
-        icon: "warning",
-      });
-      navigate("/orders");
+      await handlePayPalPayment();
     } catch (error) {
-      console.error("Erro ao realizar o pedido", error);
-      alert("Falha ao realizar o pedido");
+      console.error("Erro no pedido", error);
+      Swal.fire("Erro", "Falha ao processar pedido", "error");
     }
   };
 
-  const handleNextStep = () => {
-    setStep(step + 1);
+  const validateStep = async (step) => {
+    let fields = [];
+    switch (step) {
+      case 1:
+        fields = ["name", "phone", "city", "country", "state", "zipcode"];
+        break;
+      case 2:
+        return isChecked;
+      default:
+        return true;
+    }
+
+    const isValid = await trigger(fields);
+    return isValid;
   };
 
-  const handlePreviousStep = () => {
-    setStep(step - 1);
+  const handleNextStep = async () => {
+    const isValid = await validateStep(step);
+    if (isValid) setStep(step + 1);
   };
+
+  const handlePreviousStep = () => setStep(step - 1);
 
   const handlePayPalPayment = async () => {
     try {
       const response = await createPaypalPayment(totalPrice).unwrap();
       window.location.href = response.forwardLink;
     } catch (error) {
-      console.error("Erro ao criar pagamento PayPal", error);
-      Swal.fire({
-        title: "Erro",
-        text: "Ocorreu um erro ao processar o pagamento.",
-        icon: "error",
-      });
+      console.error("Erro no PayPal", error);
+      Swal.fire("Erro", "Falha no pagamento", "error");
     }
   };
 
   if (isLoading) return <Loading />;
 
   return (
-    <section>
-      <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
-        <div className="container max-w-screen-lg mx-auto">
-          <div>
-            <div>
-              <h2 className="font-semibold text-xl text-gray-600 mb-2">
-                Pagamento na entrega
-              </h2>
-              <p className="text-gray-500 mb-2">Total Price: R${totalPrice}</p>
-              <p className="text-gray-500 mb-6">
-                Itens: {cartItems.length > 0 ? cartItems.length : 0}
-              </p>
-            </div>
-
-            <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-              <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3 my-8"
-              >
-                {step === 1 && (
-                  <>
-                    {/* Personal Details Section */}
-                    <div className="text-gray-600">
-                      <p className="font-medium text-lg">Detalhes pessoais</p>
-                      <p>Preencha todos os campos.</p>
-                    </div>
-
-                    <div className="lg:col-span-2">
-                      <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                        <div className="md:col-span-5">
-                          <label htmlFor="full_name">Nome completo</label>
-                          <input
-                            {...register("name", { required: true })}
-                            type="text"
-                            name="name"
-                            id="name"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          />
-                        </div>
-
-                        <div className="md:col-span-5">
-                          <label htmlFor="email">Email</label>
-                          <input
-                            type="text"
-                            name="email"
-                            id="email"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                            disabled
-                            defaultValue={currentUser?.email}
-                            placeholder="email@domain.com"
-                          />
-                        </div>
-                        <div className="md:col-span-5">
-                          <label htmlFor="phone">Número de telefone</label>
-                          <input
-                            {...register("phone", { required: true })}
-                            type="number"
-                            name="phone"
-                            id="phone"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50 appearance-none"
-                            placeholder="+123 456 7890"
-                          />
-                        </div>
-
-                        <div className="md:col-span-3">
-                          <label htmlFor="address">Endereço / Rua</label>
-                          <input
-                            {...register("address", { required: true })}
-                            type="text"
-                            name="address"
-                            id="address"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          />
-                        </div>
-
-                        <div className="md:col-span-2">
-                          <label htmlFor="city">Cidade</label>
-                          <input
-                            {...register("city", { required: true })}
-                            type="text"
-                            name="city"
-                            id="city"
-                            className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          />
-                        </div>
-
-                        <div className="md:col-span-2">
-                          <label htmlFor="country">País / Região</label>
-                          <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                            <input
-                              {...register("country", { required: true })}
-                              name="country"
-                              id="country"
-                              className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-2">
-                          <label htmlFor="state">Estado / província</label>
-                          <div className="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                            <input
-                              {...register("state", { required: true })}
-                              name="state"
-                              type="text"
-                              id="state"
-                              className="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="md:col-span-1">
-                          <label htmlFor="zipcode">Zipcode</label>
-                          <input
-                            {...register("zipcode", { required: true })}
-                            type="text"
-                            name="zipcode"
-                            id="zipcode"
-                            className="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="md:col-span-5 text-right">
-                      <button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Próximo
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                {step === 2 && (
-                  <>
-                    {/* Terms and Conditions Section */}
-                    <div className="md:col-span-5 mt-3">
-                      <div className="inline-flex items-center">
-                        <input
-                          onChange={(e) => setIsChecked(e.target.checked)}
-                          type="checkbox"
-                          name="billing_same"
-                          id="billing_same"
-                          className="form-checkbox"
-                        />
-                        <label htmlFor="billing_same" className="ml-2 ">
-                          Eu concordo com{" "}
-                          <Link
-                            to="/terms"
-                            className="underline underline-offset-2 text-blue-600"
-                          >
-                            Termos e Condições
-                          </Link>{" "}
-                          e{" "}
-                          <Link
-                            to="/privacy"
-                            className="underline underline-offset-2 text-blue-600"
-                          >
-                            Política de compras
-                          </Link>
-                        </label>
-                      </div>
-                    </div>
-                    <div className="md:col-span-5 text-right">
-                      <button
-                        type="button"
-                        onClick={handlePreviousStep}
-                        className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
-                      >
-                        Voltar
-                      </button>
-                      <button
-                        type="button"
-                        onClick={handleNextStep}
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        disabled={!isChecked}
-                      >
-                        Próximo
-                      </button>
-                    </div>
-                  </>
-                )}
-
-                {step === 3 && (
-                  <>
-                    {/* Payment Section */}
-                    <div className="md:col-span-5 text-right">
-                      <div className="inline-flex items-end">
-                        <button
-                          type="button"
-                          onClick={handlePreviousStep}
-                          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mr-2"
-                        >
-                          Voltar
-                        </button>
-                        <button
-                          type="button"
-                          onClick={handlePayPalPayment}
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                          Pagar com PayPal
-                        </button>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </form>
-            </div>
+    <section className="bg-gray-50 min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <div className="bg-white shadow-lg rounded-lg p-8">
+          {/* Cabeçalho */}
+          <div className="mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-800">
+              Pagamento na Entrega
+            </h2>
+            <p className="text-gray-600 mt-2">Total: R${totalPrice}</p>
+            <p className="text-gray-600 mt-1">Itens: {cartItems.length}</p>
           </div>
+
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-1 gap-6"
+          >
+            {step === 1 && (
+              <>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-700 mb-4">
+                    Dados Pessoais
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[
+                    { id: "name", label: "Nome Completo", type: "text" },
+                    {
+                      id: "phone",
+                      label: "Telefone",
+                      type: "number",
+                      placeholder: "+55 11 91234-5678",
+                    },
+                    { id: "city", label: "Cidade", type: "text" },
+                    { id: "country", label: "País/Região", type: "text" },
+                    { id: "state", label: "Estado/Província", type: "text" },
+                    { id: "zipcode", label: "CEP", type: "text" },
+                  ].map((field) => (
+                    <div key={field.id}>
+                      <label
+                        htmlFor={field.id}
+                        className="block text-gray-700 font-medium mb-1"
+                      >
+                        {field.label}
+                      </label>
+                      <input
+                        {...register(field.id, {
+                          required: `${field.label} é obrigatório`,
+                        })}
+                        type={field.type}
+                        id={field.id}
+                        className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-[#FFEB00]"
+                        placeholder={field.placeholder}
+                      />
+                      {errors[field.id] && (
+                        <span className="text-red-500 text-sm mt-1 block">
+                          {errors[field.id].message}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="text-right mt-4">
+                  <button
+                    type="button"
+                    onClick={handleNextStep}
+                    className="bg-[#FFEB00] hover:bg-[#E6D400] text-[#000957] font-bold py-2 px-6 rounded-lg"
+                  >
+                    Próximo
+                  </button>
+                </div>
+              </>
+            )}
+
+            {step === 2 && (
+              <>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-700 mb-4">
+                    Termos e Condições
+                  </h3>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="flex items-start">
+                    <input
+                      type="checkbox"
+                      onChange={(e) => setIsChecked(e.target.checked)}
+                      className="mt-1 form-checkbox h-5 w-5 text-[#FFEB00]"
+                    />
+                    <span className="ml-2 text-gray-700">
+                      Concordo com os{" "}
+                      <Link
+                        to="/terms"
+                        className="text-[#FFEB00] hover:underline"
+                      >
+                        Termos de Serviço
+                      </Link>{" "}
+                      e{" "}
+                      <Link
+                        to="/privacy"
+                        className="text-[#FFEB00] hover:underline"
+                      >
+                        Política de Privacidade
+                      </Link>
+                    </span>
+                  </label>
+                  {!isChecked && step === 2 && (
+                    <p className="text-red-500 text-sm">
+                      Você deve aceitar os termos
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex justify-between mt-4">
+                  <button
+                    type="button"
+                    onClick={handlePreviousStep}
+                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Voltar
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNextStep}
+                    disabled={!isChecked}
+                    className={`bg-[#FFEB00] hover:bg-[#E6D400] text-[#000957] font-bold py-2 px-4 rounded-lg ${
+                      !isChecked ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                  >
+                    Próximo
+                  </button>
+                </div>
+              </>
+            )}
+
+            {step === 3 && (
+              <>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-700 mb-4">
+                    Método de Pagamento
+                  </h3>
+                </div>
+
+                <div className="flex justify-end gap-4">
+                  <button
+                    type="button"
+                    onClick={handlePreviousStep}
+                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg"
+                  >
+                    Voltar
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-[#FFEB00] hover:bg-[#E6D400] text-[#000957] font-bold py-2 px-4 rounded-lg"
+                  >
+                    Finalizar Compra com PayPal
+                  </button>
+                </div>
+              </>
+            )}
+          </form>
         </div>
       </div>
     </section>
