@@ -6,47 +6,63 @@ import { addToCart } from "../../redux/features/cartSlice";
 
 const BookCard = ({ book }) => {
   const dispatch = useDispatch();
+  const discountPercentage = book?.oldPrice
+    ? Math.round(((book.oldPrice - book.newPrice) / book.oldPrice) * 100)
+    : 0;
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
+
   return (
-    <div className=" rounded-lg transition-shadow duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:h-72  sm:justify-center gap-4">
-        <div className="sm:h-72 sm:flex-shrink-0 border rounded-md">
-          <Link to={`/books/${book._id}`}>
+    <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 h-full flex flex-col">
+      <div className="flex flex-col md:flex-row gap-4 p-4 flex-1">
+        <div className="md:w-2/5 flex-shrink-0 relative overflow-hidden rounded-lg border-2 border-gray-200 aspect-[3/4] transform hover:scale-105 transition-transform duration-300 ease-in-out">
+          <Link to={`/books/${book._id}`} className="block h-full">
             <img
               src={`${getImgUrl(book?.coverImage)}`}
-              alt=""
-              className="w-full bg-cover p-2 rounded-md cursor-pointer hover:scale-105 transition-all duration-200"
+              alt={`Capa do livro ${book.title}`}
+              className="w-full h-full object-cover"
             />
+
+            {discountPercentage > 0 && (
+              <div className="absolute top-2 right-2 bg-[#FFEB00] text-gray-900 px-2 py-1 rounded-md text-xs font-bold shadow-lg z-10">
+                {discountPercentage}% OFF
+              </div>
+            )}
           </Link>
         </div>
 
-        <div>
-          <Link to={`/books/${book._id}`}>
-            <h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
-              {book?.title}
-            </h3>
-          </Link>
-          <p className="text-gray-600 mb-5">
-            {book?.description.length > 80
-              ? `${book.description.slice(0, 80)}...`
-              : book?.description}
+        <div className="md:w-3/5 flex flex-col justify-between flex-1">
+          <div className="mb-3">
+            <Link to={`/books/${book._id}`}>
+              <h3 className="text-xl font-bold text-gray-800 hover:text-[#577BC1] line-clamp-2 mb-2 transition-colors duration-200">
+                {book?.title}
+              </h3>
+            </Link>
+            <p className="text-md text-gray-600">{book?.author}</p>
+          </div>
+
+          <p className="text-md text-gray-600 line-clamp-3 mb-4 flex-grow">
+            {book?.description}
           </p>
-          <p className="font-medium mb-5">
-            R${book?.newPrice}{" "}
-            <span className="line-through font-normal ml-2">
-              R$ {book?.oldPrice}
+
+          <div className="flex flex-row justify-between items-center gap-3">
+            <span className="text-2xl font-bold text-[#577BC1]">
+              R$ {book?.newPrice.toFixed(2)}
             </span>
-          </p>
-          <button
-            onClick={() => handleAddToCart(book)}
-            className="btn-primary px-6 space-x-1 flex items-center gap-1 "
-          >
-            <FiShoppingCart className="" />
-            <span>Adicionar</span>
-          </button>
+
+            <button
+              onClick={() => handleAddToCart(book)}
+              className="bg-[#FFEB00] hover:bg-[#E6D400] text-gray-900 px-4 py-2 rounded-md
+                       flex items-center gap-1.5 transition-all duration-200
+                       border border-gray-900/10 font-semibold whitespace-nowrap
+                       shadow-sm hover:shadow-md active:scale-95"
+            >
+              <FiShoppingCart className="text-lg" />
+              <span className="text-md">Add</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
